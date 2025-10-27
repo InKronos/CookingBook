@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Ionicons } from '@expo/vector-icons';
 
 
 export default function RootLayout() {
@@ -19,7 +20,9 @@ export default function RootLayout() {
             backgroundColor: '#0082fc',
           },
           headerTintColor: '#fff',
-          
+          headerRight: () => 
+            <Ionicons.Button name="search" size={32} backgroundColor={'#0082fc'} />,
+           
         }}/>
       </Stack>
       <StatusBar style="auto" />

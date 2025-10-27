@@ -1,20 +1,14 @@
-import { Link, router } from "expo-router";
-import { FlatList, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useCallback, useEffect, useState } from "react";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { RecipeCard } from "@/components/RecipeCard/RecipeCard";
 import { Recipe } from "@/model/Recipe.model";
 import { RecipieService } from "@/sevices/recipie/RecipeService";
+import { useEffect, useState } from "react";
+import { FlatList, StyleSheet } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 interface homeScreenProps {
     
 }
 
-
-type ItemProps = {title: string};
-const Item = ({title}: ItemProps) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
 
 const home = (props: homeScreenProps) => {
 
@@ -28,7 +22,7 @@ const home = (props: homeScreenProps) => {
         <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
                 <FlatList
                 data={recipes}
-                renderItem={({item}) => <Item title={item.name} />}
+                renderItem={({item}) => <RecipeCard title={item.name} imgUrl={item.imageUrl} favorite={item.favorite} time={item.cookTime} grade={item.stars} />}
             />     
         </SafeAreaView>
     )

@@ -1,26 +1,28 @@
 import { useFilteredRecipes } from "@/hooks/useFilteredRecipes";
 import { useSearchStore } from "@/store/searchStore";
 import { Ionicons } from "@expo/vector-icons";
+import { Router, useRouter } from "expo-router";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
 
-type ItemProps = {name: string};
+type ItemProps = {id: number, name: string, router: Router};
 
 const Item = (props: ItemProps) => (
-    <View style={styles.row}>
+    <TouchableOpacity style={styles.row} onPress={() => props.router.push({
+         pathname: "/recipe/[id]",
+         params: { id: props.id, nameTitle: props.name}
+      })}>
       <Text style={styles.name}>{props.name}</Text>
 
-      <TouchableOpacity>
         <Ionicons
           name={'book-outline'}
           size={28}
           color="#000"
         />
-      </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 
 interface searchScreenProps {
@@ -29,6 +31,7 @@ interface searchScreenProps {
 
 const search = (props: searchScreenProps) => {
    const { query } = useSearchStore();
+   const router = useRouter();
    
    const { recipes, loading } = useFilteredRecipes(query);
 
@@ -38,7 +41,7 @@ const search = (props: searchScreenProps) => {
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
          <FlatList
          data={recipes}
-         renderItem={({item}) => <Item name={item.name} />}
+         renderItem={({item}) => <Item name={item.name} id={item.id} router={router}/>}
          ItemSeparatorComponent={() => <View style={styles.separator} />}
          />
       </SafeAreaView>

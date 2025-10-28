@@ -1,8 +1,8 @@
 import { RecipeCard } from "@/components/RecipeCard/RecipeCard";
-import { Recipe } from "@/model/Recipe.model";
-import { RecipieService } from "@/sevices/recipie/RecipeService";
-import { useEffect, useState } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { useRecipes } from "@/hooks/useRecipes";
+import { Ionicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
+import { FlatList, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface homeScreenProps {
@@ -12,19 +12,27 @@ interface homeScreenProps {
 
 const home = (props: homeScreenProps) => {
 
-    const [recipes, setRecipes] = useState<Recipe[]>([]);
+    const { recipes, loading } = useRecipes();
 
-    useEffect(() => {
-        const recipesService = new RecipieService;
-        setRecipes(recipesService.getAllRecipies());
-    },[])
+    if (loading) return <Text>Ładowanie...</Text>;
+
     return(
         <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-                <FlatList
+            <FlatList
                 data={recipes}
                 renderItem={({item}) => <RecipeCard title={item.name} imgUrl={item.imageUrl} favorite={item.favorite} time={item.cookTime} grade={item.stars} />}
             />     
+            <Link href="/" style={{position: "absolute", bottom: 0, right: 0, margin: 5, backgroundColor: '#0082fc', borderRadius:100}}>
+              <Ionicons
+                  name="add-sharp"
+                 
+                  color={"white"}
+                  size={70}
+              /> 
+            </Link>
+            
         </SafeAreaView>
+
     )
 }
 const styles = StyleSheet.create({

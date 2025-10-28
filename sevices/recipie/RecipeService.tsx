@@ -1,7 +1,13 @@
 import { Recipe } from "@/model/Recipe.model";
 
-export class RecipieService {
-    getAllRecipies(): Recipe[]{
+export class RecipeService {
+
+
+    getRecipiesBySearchTerm(searchTerm: string): Recipe[] {
+      return searchTerm === "" ? [] : this.getAllRecipes().filter(recipe => recipe.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
+
+    getAllRecipes(): Recipe[]{
         return [
              {
         id: 1,

@@ -34,6 +34,14 @@ export default function RootLayout() {
             }
           }}
         />
+        <Stack.Screen name='recipe/[id]'
+          options={{
+            headerStyle: {
+              backgroundColor: '#0082fc'
+            },
+            headerTintColor: '#fff'
+          }}
+        />
       </Stack>
       
       <StatusBar style="auto" />

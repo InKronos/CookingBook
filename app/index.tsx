@@ -20,9 +20,10 @@ const home = (props: homeScreenProps) => {
         <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
             <FlatList
                 data={recipes}
-                renderItem={({item}) => <RecipeCard title={item.name} imgUrl={item.imageUrl} favorite={item.favorite} time={item.cookTime} grade={item.stars} />}
+                renderItem={({item}) => <RecipeCard id={item.id} title={item.name} imgUrl={item.imageUrl} favorite={item.favorite} time={item.cookTime} grade={item.stars} />}
+                
             />     
-            <Link href="/" style={{position: "absolute", bottom: 0, right: 0, margin: 5, backgroundColor: '#0082fc', borderRadius:100}}>
+            <Link href="/" style={{position: "absolute", bottom: 5, right: 0, margin: 5, backgroundColor: '#0082fc', borderRadius:100}}>
               <Ionicons
                   name="add-sharp"
                  

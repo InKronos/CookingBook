@@ -1,10 +1,10 @@
 export class Recipe {
     id!: number;
     name!: string;
-    recipe!: string;
+    description!: string;
     favorite:boolean = false;
     stars:number = 0;
-    imageUrl!:string;
-    origins!:string[];
+    imageUrl!:any;
+    ingredients!:string[];
     cookTime!:string;
 }

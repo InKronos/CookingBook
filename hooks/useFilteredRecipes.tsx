@@ -9,7 +9,7 @@ export function useFilteredRecipes(searchTerm: string) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const data = recipeService.getRecipiesBySearchTerm(searchTerm);
+    const data = recipeService.getRecipesBySearchTerm(searchTerm);
     setRecipes(data);
     setLoading(false);
   }, [searchTerm]); 

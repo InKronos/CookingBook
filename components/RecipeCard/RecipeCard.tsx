@@ -1,7 +1,10 @@
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Stars from '../stars';
 
 type RecipeCardProps = {
+  id: number,
   title: string,
   imgUrl: any, //Bo poberane są z require
   favorite: boolean,
@@ -9,28 +12,18 @@ type RecipeCardProps = {
   grade: number
 };
 
- const renderStars = (count: number) => {
-    const fullStars = Math.floor(count);
-    const hasHalf = count - fullStars >= 0.5;
-    const stars = [];
 
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<MaterialIcons key={`full-${i}`} name="star" size={20} color="gold" />);
-    }
 
-    if (hasHalf) {
-      stars.push(<MaterialIcons key="half" name="star-half" size={20} color="gold" />);
-    }
-
-    while (stars.length < 5) {
-      stars.push(<MaterialIcons key={`empty-${stars.length}`} name="star-border" size={20} color="grey" />);
-    }
-
-    return <View style={styles.starRow}>{stars}</View>;
-  };
-
-export const RecipeCard = ({title, imgUrl, favorite, time, grade}: RecipeCardProps) => (
-    <View style={styles.card}>
+export const RecipeCard = ({id, title, imgUrl, favorite, time, grade}: RecipeCardProps) => {
+    const router = useRouter();
+  
+  
+    //Wysyłam tytuł do routera aby nie musieć go ładować z serwisu
+  return(
+    <TouchableOpacity style={styles.card} onPress={() => router.push({
+      pathname: "/recipe/[id]",
+      params: { id: id, nameTitle: title}
+    })}> 
       <ImageBackground
         source={imgUrl}
         style={styles.image}
@@ -47,12 +40,12 @@ export const RecipeCard = ({title, imgUrl, favorite, time, grade}: RecipeCardPro
           </View>
 
           <Text style={styles.text}>{time} min</Text>
-          {renderStars(grade)}
+          <Stars grade={grade}/>
         </View>
       </ImageBackground>
-    </View>
+    </TouchableOpacity>
  
-);
+)};
 
 
 const styles = StyleSheet.create({

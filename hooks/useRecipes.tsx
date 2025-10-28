@@ -15,3 +15,17 @@ export function useRecipes() {
 
   return { recipes, loading };
 }
+
+export function useRecipe(id: number) {
+    const [recipe, setRecipe] = useState<Recipe>();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const service = new RecipeService();
+        const data = service.getRecipesByID(id);
+        setRecipe(data);
+        setLoading(false);
+    }, []);
+
+    return { recipe, loading };
+}

@@ -1,8 +1,9 @@
 import Stars from "@/components/stars";
-import { useRecipe } from "@/hooks/useRecipes";
+import { useRecipe, useUpdateFavorite } from "@/hooks/useRecipes";
+import { assetsMap } from "@/utils/assetMap";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -12,12 +13,29 @@ const recipeScreen = () => {
     const { id, nameTitle } = useLocalSearchParams<{ id: string, nameTitle: string }>();
     const navigation = useNavigation();
 
+
+    const { recipe: fetchedRecipe, loading } = useRecipe(parseInt(id));
+
+    const { updateFavorite } = useUpdateFavorite();
+    const [recipe, setRecipe] = useState(fetchedRecipe);
+
     useEffect(() => {
       navigation.setOptions({ headerTitle: nameTitle});
     }, [navigation]);
 
-    const { recipe, loading } = useRecipe(parseInt(id));
     
+    useEffect(() => {
+      setRecipe(fetchedRecipe);
+    }, [fetchedRecipe]);
+
+    function updateFavoite(){
+      if(recipe){
+        const newFavorite = !recipe.favorite;
+        setRecipe({ ...recipe, favorite: newFavorite })
+        updateFavorite(recipe.id, newFavorite);
+      }
+    }
+
     if (loading) return <Text>Ładowanie...</Text>;
 
     if (recipe != undefined)
@@ -25,11 +43,11 @@ const recipeScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
             <ScrollView style={styles.container}>
             
-            <Image source={recipe.imageUrl} style={styles.image} />
+            <Image source={recipe.imageUrl.includes("assets") ? assetsMap[recipe.imageUrl]: {uri: recipe.imageUrl}} style={styles.image} />
 
             <View style={styles.row}>
                 <Stars grade={recipe.stars}/>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={updateFavoite}>
                 <Ionicons
                     name={recipe.favorite ? 'heart' : 'heart-outline'}
                     size={26}
@@ -61,6 +79,8 @@ const recipeScreen = () => {
     </SafeAreaView>
     )
     else return <Text>Nie znaleźiono przepisu</Text>;
+
+    
 }
 
 

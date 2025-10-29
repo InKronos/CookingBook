@@ -4,11 +4,17 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { SearchHeader } from '@/components/SearchHeader/SearchHeader';
+import { initDatabase } from '@/data/database';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Ionicons } from '@expo/vector-icons';
+import { useEffect } from 'react';
 
 
 export default function RootLayout() {
+
+  useEffect(() => {
+    initDatabase();
+  }, []);
   const colorScheme = useColorScheme();
   const router = useRouter();
 

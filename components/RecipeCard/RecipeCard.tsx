@@ -1,3 +1,4 @@
+import { assetsMap } from '@/utils/assetMap';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -6,17 +7,17 @@ import Stars from '../stars';
 type RecipeCardProps = {
   id: number,
   title: string,
-  imgUrl: any, //Bo poberane są z require
+  imgUrl: string, //Bo poberane są z require
   favorite: boolean,
   time: string,
   grade: number
 };
 
 
-
 export const RecipeCard = ({id, title, imgUrl, favorite, time, grade}: RecipeCardProps) => {
-    const router = useRouter();
+  const router = useRouter();
   
+
   
     //Wysyłam tytuł do routera aby nie musieć go ładować z serwisu
   return(
@@ -25,7 +26,7 @@ export const RecipeCard = ({id, title, imgUrl, favorite, time, grade}: RecipeCar
       params: { id: id, nameTitle: title}
     })}> 
       <ImageBackground
-        source={imgUrl}
+        source={imgUrl.includes("assets") ? assetsMap[imgUrl]: {uri: imgUrl}}
         style={styles.image}
         imageStyle={styles.imageStyle}
       >

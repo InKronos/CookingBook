@@ -1,13 +1,24 @@
+import { RecipeRepository } from "@/data/recipeRepository";
 import { Recipe } from "@/model/Recipe.model";
 
 export class RecipeService {
 
-    getRecipesByID(id: number): Recipe{
-      return this.getAllRecipes().find(recipe => recipe.id == id)!;
+    getRecipesByID(id: number): Recipe | undefined{
+      //return this.getAllRecipes().find(recipe => recipe.id == id)!;
+      return RecipeRepository.getById(id);
     }
 
     getRecipesBySearchTerm(searchTerm: string): Recipe[] {
-      return searchTerm === "" ? [] : this.getAllRecipes().filter(recipe => recipe.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      //return searchTerm === "" ? [] : this.getAllRecipes().filter(recipe => recipe.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      return RecipeRepository.getRecipesBySearchTerm(searchTerm)
+    }
+
+    getAllRecipesDatabase():Recipe[]{
+      return RecipeRepository.getAll();
+    }
+
+    updateFavorite(id:number, favorite: boolean): void {
+      RecipeRepository.updateFavorite(id, favorite);
     }
 
     getAllRecipes(): Recipe[]{

@@ -4,7 +4,7 @@ export class Recipe {
     description!: string;
     favorite:boolean = false;
     stars:number = 0;
-    imageUrl!:any;
+    imageUrl!:string;
     ingredients!:string[];
     cookTime!:string;
 }

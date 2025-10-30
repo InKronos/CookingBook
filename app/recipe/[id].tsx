@@ -2,7 +2,7 @@ import Stars from "@/components/stars";
 import { useRecipe, useUpdateFavorite } from "@/hooks/useRecipes";
 import { assetsMap } from "@/utils/assetMap";
 import { Ionicons } from "@expo/vector-icons";
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -70,7 +70,10 @@ const recipeScreen = () => {
                 <Text style={styles.description}>{recipe.description}</Text>
             </View>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => router.push({
+              pathname: "/editRecipe/[id]",
+              params: { id: id}
+            })}>
                 <Text style={styles.buttonText}>
                 Edytuj Przepis
                 </Text>

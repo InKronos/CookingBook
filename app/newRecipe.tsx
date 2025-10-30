@@ -69,15 +69,16 @@ const newRecipe = () => {
   };
 
   const saveRecipe = () => {
-      const recipe = new Recipe();
-      recipe.id = 0;
-      recipe.cookTime = cookTime;
-      recipe.imageUrl = imageUri;
-      recipe.description = description;
-      recipe.ingredients = ingredients;
-      recipe.stars = rating;
-      recipe.name = recipeName;
-      recipe.favorite = false;
+      const recipe: Omit<Recipe, 'id'> = {
+        description: description,
+        cookTime: cookTime,
+        favorite: false,
+        stars: rating,
+        name: recipeName,
+        ingredients: ingredients,
+        imageUrl: imageUri
+      }
+      
       addRecipe(recipe);
       setSuccess(true);
   }
@@ -183,7 +184,7 @@ const newRecipe = () => {
           <Text style={styles.popupText}>Przepis został dodany</Text>
           <TouchableOpacity
             style={styles.okButton}
-            onPress={() => router.push({pathname: "/"})}
+            onPress={() => router.replace("/")}
           >
             <Text style={styles.okButtonText}>Ok</Text>
           </TouchableOpacity>

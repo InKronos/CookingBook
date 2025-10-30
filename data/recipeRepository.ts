@@ -55,4 +55,11 @@ export const RecipeRepository = {
   updateFavorite(id: number, favorite: boolean) {
     db.runSync('UPDATE recipes SET favorite = ? WHERE id = ?', [favorite ? 1 : 0, id]);
   },
+
+  async updateRecipe(recipe: Recipe) {
+    db.runAsync(
+      'UPDATE recipes SET name = ?, cookTime = ?, favorite = ?, stars = ?, ingredients = ?, description = ?, imageUrl = ? WHERE id = ?',
+      [recipe.name, recipe.cookTime, recipe.favorite ? 1 : 0, recipe.stars, recipe.ingredients.toString(), recipe.description, recipe.imageUrl, recipe.id]
+    )
+  }
 };

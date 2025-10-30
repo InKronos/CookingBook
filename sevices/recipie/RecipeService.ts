@@ -21,10 +21,21 @@ export class RecipeService {
       RecipeRepository.updateFavorite(id, favorite);
     }
 
-    async addRecipe(recipe: Recipe): Promise<void> {
+    async addRecipe(recipe: Omit<Recipe, 'id'>): Promise<void> {
       const newPath = FileSystem.documentDirectory + 'recipes/' + Date.now() + '.jpg';
       await FileSystem.copyAsync({ from: recipe.imageUrl, to: newPath });
       await RecipeRepository.insert(recipe);
+    }
+
+    async updateRecipe(recipe: Recipe, defaultImageUrl: string) {
+      if(recipe.imageUrl !== defaultImageUrl){
+        const newPath = FileSystem.documentDirectory + 'recipes/' + Date.now() + '.jpg';
+        await FileSystem.copyAsync({ from: recipe.imageUrl, to: newPath });
+        await RecipeRepository.updateRecipe(recipe);
+      }
+      else{
+        await RecipeRepository.updateRecipe(recipe);
+      }
     }
 
     getAllRecipes(): Recipe[]{

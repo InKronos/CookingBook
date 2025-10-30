@@ -23,7 +23,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="index"
           options={{
-          headerTitle: "Cooking Book",
+          headerTitle: "Książka kucharska",
           headerStyle: {
             backgroundColor: '#0082fc',
           },
@@ -42,6 +42,15 @@ export default function RootLayout() {
         />
         <Stack.Screen name='recipe/[id]'
           options={{
+            headerStyle: {
+              backgroundColor: '#0082fc'
+            },
+            headerTintColor: '#fff'
+          }}
+        />
+          <Stack.Screen name='editRecipe/[id]'
+          options={{
+            headerTitle: "Edytuj przepis",
             headerStyle: {
               backgroundColor: '#0082fc'
             },

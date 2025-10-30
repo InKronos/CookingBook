@@ -48,6 +48,15 @@ export default function RootLayout() {
             headerTintColor: '#fff'
           }}
         />
+        <Stack.Screen name='newRecipe'
+          options={{
+            headerTitle: "Nowy przepis",
+            headerStyle: {
+              backgroundColor: '#0082fc'
+            },
+            headerTintColor: '#fff'
+          }}
+        />
       </Stack>
       
       <StatusBar style="auto" />

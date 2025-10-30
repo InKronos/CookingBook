@@ -45,10 +45,10 @@ export const RecipeRepository = {
     };
   },
 
-  insert(recipe: Omit<Recipe, 'id'>) {
-    db.runSync(
-      'INSERT INTO recipes (name, cookTime, favorite, stars) VALUES (?, ?, ?, ?)',
-      [recipe.name, recipe.cookTime, recipe.favorite ? 1 : 0, recipe.stars]
+  async insert(recipe: Omit<Recipe, 'id'>) {
+    db.runAsync(
+      'INSERT INTO recipes (name, cookTime, favorite, stars, ingredients, description, imageUrl) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [recipe.name, recipe.cookTime, recipe.favorite ? 1 : 0, recipe.stars, recipe.ingredients.toString(), recipe.description, recipe.imageUrl]
     );
   },
 

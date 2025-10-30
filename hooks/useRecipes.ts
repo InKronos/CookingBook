@@ -1,6 +1,7 @@
 import { Recipe } from '@/model/Recipe.model';
 import { RecipeService } from '@/sevices/recipie/RecipeService';
-import { useEffect, useState } from 'react';
+import { useFocusEffect } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
 const service = new RecipeService();
 
 
@@ -8,12 +9,19 @@ export function useRecipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const data = service.getAllRecipesDatabase();
-    setRecipes(data);
-    setLoading(false);
-  }, []);
+ useFocusEffect(
+    useCallback(() => {
+      setLoading(true); 
+ 
+      const data = service.getAllRecipesDatabase(); 
+  
+      setRecipes(data);
+      setLoading(false);
 
+      return () => {
+      };
+    }, [])
+  );
   return { recipes, loading };
 }
 
@@ -38,4 +46,17 @@ export function useUpdateFavorite() {
   }
 
   return { updateFavorite };
+}
+
+export function useAddRecipe() {
+  const [loading, setLoading] = useState(false);
+
+
+  async function addRecipe(recipe: Recipe) {
+    setLoading(true);
+    await service.addRecipe(recipe);
+    setLoading(false);
+  }
+
+  return { addRecipe, loading };
 }

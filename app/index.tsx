@@ -1,8 +1,8 @@
 import { RecipeCard } from "@/components/RecipeCard/RecipeCard";
 import { useRecipes } from "@/hooks/useRecipes";
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
-import { FlatList, StyleSheet, Text } from "react-native";
+import { useRouter } from "expo-router";
+import { FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface homeScreenProps {
@@ -13,7 +13,8 @@ interface homeScreenProps {
 const home = (props: homeScreenProps) => {
 
     const { recipes, loading } = useRecipes();
-
+    const router = useRouter();
+    
     if (loading) return <Text>Ładowanie...</Text>;
 
     return(
@@ -23,14 +24,14 @@ const home = (props: homeScreenProps) => {
                 renderItem={({item}) => <RecipeCard id={item.id} title={item.name} imgUrl={item.imageUrl} favorite={item.favorite} time={item.cookTime} grade={item.stars} />}
                 
             />     
-            <Link href="/" style={{position: "absolute", bottom: 5, right: 0, margin: 5, backgroundColor: '#0082fc', borderRadius:100}}>
+            <TouchableOpacity onPress={() => router.push({pathname: "/newRecipe"})} style={{position: "absolute", bottom: 5, right: 0, margin: 5, backgroundColor: '#0082fc', borderRadius:100}}>
               <Ionicons
                   name="add-sharp"
                  
                   color={"white"}
                   size={70}
               /> 
-            </Link>
+            </TouchableOpacity>
             
         </SafeAreaView>
 

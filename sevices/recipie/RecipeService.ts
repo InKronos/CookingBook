@@ -1,6 +1,6 @@
 import { RecipeRepository } from "@/data/recipeRepository";
 import { Recipe } from "@/model/Recipe.model";
-
+import * as FileSystem from "expo-file-system/legacy";
 export class RecipeService {
 
     getRecipesByID(id: number): Recipe | undefined{
@@ -19,6 +19,12 @@ export class RecipeService {
 
     updateFavorite(id:number, favorite: boolean): void {
       RecipeRepository.updateFavorite(id, favorite);
+    }
+
+    async addRecipe(recipe: Recipe): Promise<void> {
+      const newPath = FileSystem.documentDirectory + 'recipes/' + Date.now() + '.jpg';
+      await FileSystem.copyAsync({ from: recipe.imageUrl, to: newPath });
+      await RecipeRepository.insert(recipe);
     }
 
     getAllRecipes(): Recipe[]{

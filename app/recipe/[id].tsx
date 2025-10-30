@@ -72,7 +72,7 @@ const recipeScreen = () => {
 
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>
-                {recipe.favorite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}
+                Edytuj Przepis
                 </Text>
             </TouchableOpacity>
     </ScrollView>

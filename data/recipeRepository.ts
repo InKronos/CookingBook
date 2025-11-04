@@ -61,5 +61,12 @@ export const RecipeRepository = {
       'UPDATE recipes SET name = ?, cookTime = ?, favorite = ?, stars = ?, ingredients = ?, description = ?, imageUrl = ? WHERE id = ?',
       [recipe.name, recipe.cookTime, recipe.favorite ? 1 : 0, recipe.stars, recipe.ingredients.toString(), recipe.description, recipe.imageUrl, recipe.id]
     )
+  },
+
+  async deleteRecipe(recipe: Recipe) {
+    db.runAsync(
+      'DELETE FROM recipes WHERE id = ?',
+      recipe.id
+    )
   }
 };

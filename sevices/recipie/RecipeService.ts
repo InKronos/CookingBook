@@ -29,6 +29,8 @@ export class RecipeService {
 
     async updateRecipe(recipe: Recipe, defaultImageUrl: string) {
       if(recipe.imageUrl !== defaultImageUrl){
+        if(!defaultImageUrl.includes('assets')) 
+          await FileSystem.deleteAsync(defaultImageUrl);
         const newPath = FileSystem.documentDirectory + 'recipes/' + Date.now() + '.jpg';
         await FileSystem.copyAsync({ from: recipe.imageUrl, to: newPath });
         await RecipeRepository.updateRecipe(recipe);
@@ -36,6 +38,12 @@ export class RecipeService {
       else{
         await RecipeRepository.updateRecipe(recipe);
       }
+    }
+
+    async deleteRecipe(recipe: Recipe) {
+      if(!recipe.imageUrl.includes('assets')) 
+        await FileSystem.deleteAsync(recipe.imageUrl);
+      await RecipeRepository.deleteRecipe(recipe);
     }
 
     getAllRecipes(): Recipe[]{

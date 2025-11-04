@@ -75,3 +75,15 @@ export function useUpdateRecipe() {
 
   return { updateRecipe, loading };
 }
+
+export function useDeleteRecipe() {
+  const [loading, setLoading] = useState(false);
+
+  async function deleteRecipe(recipe: Recipe) {
+    setLoading(true);
+    await service.deleteRecipe(recipe);
+    setLoading(false);
+  }
+
+  return { deleteRecipe, loading };
+}

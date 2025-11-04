@@ -42,7 +42,11 @@ export class RecipeService {
 
     async deleteRecipe(recipe: Recipe) {
       if(!recipe.imageUrl.includes('assets')) 
-        await FileSystem.deleteAsync(recipe.imageUrl);
+        FileSystem.getInfoAsync(recipe.imageUrl).then(info => {
+          if(info.exists)
+            FileSystem.deleteAsync(recipe.imageUrl);
+
+      });
       await RecipeRepository.deleteRecipe(recipe);
     }
 

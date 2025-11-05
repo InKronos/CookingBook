@@ -15,7 +15,10 @@ The application has a functionality that you can create, edit and delete the rec
 
 ## Screens
 
-![Home screen](https://github.com/InKronos/CookingBook/blob/master/images/Home.jpg?raw=true)
-![Recipe screen](https://github.com/InKronos/CookingBook/blob/master/images/recipe.png?raw=true)
-![New recipe screen](https://github.com/InKronos/CookingBook/blob/master/images/newRecipe.png?raw=true)
-![Search recipe screen](https://github.com/InKronos/CookingBook/blob/master/images/search.png?raw=true)
+<img src="https://github.com/InKronos/CookingBook/blob/master/images/Home.jpg?raw=true" alt="Home screen" style="width:200px; height:auto;">
+<img src="https://github.com/InKronos/CookingBook/blob/master/images/recipe.jpg?raw=true" alt="Recipe screen" style="width:200px; height:auto;">
+<img src="https://github.com/InKronos/CookingBook/blob/master/images/newRecipe.jpg?raw=true" alt="New recipe screen" style="width:200px; height:auto;">
+<img src="https://github.com/InKronos/CookingBook/blob/master/images/search.jpg?raw=true" alt="search screen" style="width:200px; height:auto;">
+
+
+
